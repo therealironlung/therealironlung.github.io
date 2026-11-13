@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE REAL IRON LUNG</title>
+<style>
+  :root { --bg:#ffffff; --fg:#000000; --accent:#000000; --bar:#f2f2f2; --muted:#333333; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:Arial, Helvetica, sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+  nav { background:var(--bar); display:flex; justify-content:center; gap:2.5rem; padding:1.1rem 1rem; border-bottom:2px solid var(--accent); }
+  nav a { color:var(--fg); text-decoration:none; font-weight:bold; letter-spacing:.15em; padding:.4rem .2rem; border-bottom:3px solid transparent; }
+  nav a:hover, nav a.active { color:var(--accent); border-bottom-color:var(--accent); }
+  body.is-home #homeLink { display:none; }
+  main { flex:1; display:flex; align-items:center; justify-content:center; padding:2rem; }
+  .page { display:none; width:100%; max-width:800px; }
+  .page.show { display:block; }
+  #home { text-align:center; max-width:none; }
+  #home h1 { font-size:clamp(2rem, 7vw, 5rem); letter-spacing:.08em; }
+  h2 { color:var(--accent); margin-bottom:1rem; letter-spacing:.1em; }
+  p { color:var(--muted); line-height:1.6; margin-bottom:1rem; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; padding:.7rem 1.2rem; border-radius:6px; text-decoration:none; font-weight:bold; }
+  .btn:hover { filter:brightness(1.1); }
+  code { background:var(--bar); padding:.1rem .4rem; border-radius:4px; color:var(--fg); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" data-page="home" id="homeLink">HOME</a>
+  <a href="#cad" data-page="cad">CAD</a>
+  <a href="#code" data-page="code">CODE</a>
+  <a href="#documentation" data-page="documentation">DOCUMENTATION</a>
+</nav>
+
+<main>
+  <section id="home" class="page">
+    <h1>THE REAL IRON LUNG</h1>
+  </section>
+
+  <section id="cad" class="page">
+    <h2>CAD</h2>
+    <p>CAD files for building the machine.</p>
+    <a class="btn" href="files/cad-files.zip" download>Download CAD files</a>
+  </section>
+
+  <section id="code" class="page">
+    <h2>CODE</h2>
+    <p>Arduino code for the machine, including <code>RUN_and_Calibration_Combined.ino</code>.</p>
+    <a class="btn" href="files/programs.zip" download>Download programs</a>
+  </section>
+
+  <section id="documentation" class="page">
+    <h2>DOCUMENTATION</h2>
+    <p>Setup, calibration, and operating instructions.</p>
+    <a class="btn" href="files/documentation.docx" download>Download documentation</a>
+  </section>
+</main>
+
+<script>
+  function show() {
+    var id = location.hash.replace('#','') || 'home';
+    if (!document.getElementById(id)) id = 'home';
+    document.body.classList.toggle('is-home', id === 'home');
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.toggle('show', p.id === id); });
+    document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.dataset.page === id); });
+  }
+  window.addEventListener('hashchange', show);
+  show();
+</script>
+</body>
+</html>
